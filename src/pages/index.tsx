@@ -8,13 +8,14 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
 import { LoadingPage } from "~/components/loading";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 dayjs.extend(relativeTime);
 
 const CreatePostWizard = () => {
   const { user } = useUser();
 
-  const [input, setInput ] = useState("");
+  const [input, setInput] = useState("");
 
   const ctx = api.useContext();
 
@@ -22,7 +23,15 @@ const CreatePostWizard = () => {
     onSuccess: () => {
       setInput("");
       void ctx.posts.getAll.invalidate();
-    }
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      if (errorMessage && errorMessage[0]) {
+        toast.error(errorMessage[0])
+      } else {
+        toast.error("Failed to post! Please try again later.")
+      }
+    },
   });
 
   if (!user) return null;
@@ -104,7 +113,10 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>Chirp</title>
-        <meta name="description" content="Post emojis, built with the T3 stack" />
+        <meta
+          name="description"
+          content="Post emojis, built with the T3 stack"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex h-screen justify-center">
