@@ -136,7 +136,7 @@ const Home: NextPage = () => {
         <title>Chirp</title>
         <meta
           name="description"
-          content="Post emojis, built with the T3 stack"
+          content="🐤"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
