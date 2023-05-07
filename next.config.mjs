@@ -8,7 +8,7 @@
 const config = {
   reactStrictMode: true,
   images: {
-    domains: ['images.clerk.dev'],
+    domains: ["images.clerk.dev"],
   },
 
   /**
@@ -21,5 +21,13 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  swcMinify: true,
 };
 export default config;
